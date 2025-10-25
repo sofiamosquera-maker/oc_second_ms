@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mi-deployment_second
+  name: mi-deployment-second
   namespace: sofia-mosquera-dev
   labels:
-    app: mi-app_second
+    app: mi-app-second
     areanegocio: tecnologia
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mi-app_second
+      app: mi-app-second
   template:
     metadata:
       labels:
-        app: mi-app_second
+        app: mi-app-second
     spec:
       containers:
         - name: contenedor-principal
@@ -31,18 +31,18 @@ spec:
               memory: "1500Mi"
           envFrom:
             - configMapRef:
-                name: mi-configmap_second
+                name: mi-configmap-second
             - secretRef:
-                name: mi-secret_second
+                name: mi-secret-second
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: mi-servicio_second
+  name: mi-servicio-second
   namespace: sofia-mosquera-dev  # Asegúrate de que coincida con tu Deployment
 spec:
   selector:
-    app: mi-app_second  # Debe coincidir con las labels del Deployment
+    app: mi-app-second  # Debe coincidir con las labels del Deployment
   ports:
     - protocol: TCP
       port: 4000        # Puerto del Service
@@ -52,7 +52,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mi-configmap_second
+  name: mi-configmap-second
   namespace: sofia-mosquera-dev
 data:
   DATABASE: "192.168.1.1"
@@ -60,7 +60,7 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mi-secret_second
+  name: mi-secret-second
   namespace: sofia-mosquera-dev
 type: Opaque
 data:
@@ -70,13 +70,13 @@ data:
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: mi-hpa_second
+  name: mi-hpa-second
   namespace: sofia-mosquera-dev
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: deployment
-    name: mi-deployment_second
+    name: mi-deployment-second
   minReplicas: 1
   maxReplicas: 5
   metrics:
@@ -90,7 +90,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mi-pvc_second
+  name: mi-pvc-second
   namespace: sofia-mosquera-dev
 spec:
   accessModes:
