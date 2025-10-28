@@ -19,7 +19,7 @@ public class Main {
         public void handle(HttpExchange exchange) throws IOException {
             String path = exchange.getRequestURI().getPath();
             if ("/health".equals(path) || "/readiness".equals(path) || "/startup".equals(path) ) {
-                exchange.sendResponseHeaders(404, -1);
+                exchange.sendResponseHeaders(200, 0);
                 exchange.close();
                 return;
             }
