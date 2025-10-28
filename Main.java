@@ -17,6 +17,7 @@ public class Main {
     static class HelloHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
+            String path = exchange.getRequestURI().getPath();
             if ("/health".equals(path) || "/readiness".equals(path) || "/startup".equals(path) ) {
                 exchange.sendResponseHeaders(404, -1);
                 exchange.close();
