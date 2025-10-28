@@ -17,6 +17,12 @@ public class Main {
     static class HelloHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
+            if ("/health".equals(path) || "/readiness".equals(path) || "/startup".equals(path) ) {
+                exchange.sendResponseHeaders(404, -1);
+                exchange.close();
+                return;
+            }
+
             if ("GET".equals(exchange.getRequestMethod())) {
                 String response = "Hola mundo";
                 exchange.sendResponseHeaders(200, response.getBytes().length);
